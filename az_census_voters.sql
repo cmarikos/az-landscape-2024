@@ -68,6 +68,7 @@ GROUP BY 1
 
 SELECT
 p.mailaddrcensustract10
+, c.mailaddrgeoid10
 , p.population_count
 , d.dem_votes
 , r.rep_votes
@@ -84,6 +85,9 @@ LEFT JOIN rep_votes AS r
 
 LEFT JOIN third_votes AS t
   ON p.mailaddrcensustract10 = t.mailaddrcensustract10
+
+LEFT JOIN `proj-tmc-mem-mvp.catalist_cleaned.cln_catalist__person` AS c
+  ON p.mailaddrcensustract10 = c.mailaddrcensustract10
 
 )
 
