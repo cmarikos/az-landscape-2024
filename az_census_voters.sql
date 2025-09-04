@@ -1,3 +1,5 @@
+CREATE OR REPLACE VIEW `prod-organize-arizon-4e1c0a83.viewers_dataset.az_censustract_voters_2024` AS(
+
 WITH population AS(
 SELECT
 p.mailaddrcensustract10
@@ -83,7 +85,7 @@ LEFT JOIN rep_votes AS r
 LEFT JOIN third_votes AS t
   ON p.mailaddrcensustract10 = t.mailaddrcensustract10
 
-
+)
 
 
 
