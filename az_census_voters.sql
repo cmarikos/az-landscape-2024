@@ -66,9 +66,20 @@ AND vh.e2024gst IS NOT NULL
 GROUP BY 1
 )
 
-SELECT
-p.mailaddrcensustract10
-, c.mailaddrgeoid10
+, tract_dim AS (
+  SELECT
+    mailaddrcensustract10,
+    mailaddrcensustract20,         
+    ANY_VALUE(mailaddrgeoid20) AS geoid
+  FROM `proj-tmc-mem-mvp.catalist_cleaned.cln_catalist__person`
+  WHERE state = 'AZ' AND mailaddrcensustract10 IS NOT NULL AND mailaddrgeoid10 IS NOT NULL
+  GROUP BY 1,2
+)
+
+SELECT DISTINCT
+
+td.mailaddrcensustract20
+, td.geoid
 , p.population_count
 , d.dem_votes
 , r.rep_votes
@@ -86,9 +97,10 @@ LEFT JOIN rep_votes AS r
 LEFT JOIN third_votes AS t
   ON p.mailaddrcensustract10 = t.mailaddrcensustract10
 
-LEFT JOIN `proj-tmc-mem-mvp.catalist_cleaned.cln_catalist__person` AS c
-  ON p.mailaddrcensustract10 = c.mailaddrcensustract10
+LEFT JOIN tract_dim AS td
+  ON p.mailaddrcensustract10 = td.mailaddrcensustract10
 
+WHERE td.mailaddrcensustract20 IS NOT NULL
 )
 
 
