@@ -99,8 +99,6 @@ LEFT JOIN third_votes AS t
 
 LEFT JOIN tract_dim AS td
   ON p.mailaddrcensustract10 = td.mailaddrcensustract10
-
-WHERE td.mailaddrcensustract20 IS NOT NULL
 )
 
 
